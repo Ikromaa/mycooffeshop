@@ -34,7 +34,7 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         if user and user.check_password(form.password.data):
             login_user(user)
-            return redirect(url_for('index'))
+            return redirect(url_for('book'))
         else:
             flash('Invalid email or password. Please try again.', 'danger')
     return render_template('login.html', form=form)
