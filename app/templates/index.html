@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Welcome to My Coffee Shop</title>
+</head>
+<body>
+    <h1>Welcome to My Coffee Shop</h1>
+    
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    
+    <p>Explore our menu and reserve a table to enjoy a delightful coffee experience!</p>
+    
+    {% if current_user.is_authenticated %}
+        <p>Welcome, {{ current_user.username }}! <a href="{{ url_for('profile') }}">Profile</a> | <a href="{{ url_for('logout') }}">Logout</a></p>
+    {% else %}
+        <p><a href="{{ url_for('login') }}">Login</a> or <a href="{{ url_for('register') }}">Sign Up</a></p>
+    {% endif %}
+    
+    <a href="{{ url_for('book') }}">Book a Table</a>
+</body>
+</html>
