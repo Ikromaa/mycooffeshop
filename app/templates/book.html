@@ -37,5 +37,11 @@
             {{ form.submit() }}
         </div>
     </form>
+
+
+<!-- tampil reservation_detail-->  
+    {% if reservation_id %}
+        <p>Reservation successful! <a href="{{ url_for('reservation_detail', reservation_id=reservation_id) }}">View Reservation Detail</a></p>
+    {% endif %}
 </body>
 </html>

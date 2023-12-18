@@ -19,7 +19,7 @@
         {% endif %}
     {% endwith %}
     
-    <form method="POST" action="{{ url_for('login') }}">
+    <form method="POST" action="{{ url_for('login', next=request.args.get('next')) }}">
         {{ form.hidden_tag() }}
         <div>
             {{ form.email.label }} {{ form.email() }}

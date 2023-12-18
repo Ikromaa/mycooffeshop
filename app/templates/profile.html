@@ -9,5 +9,25 @@
 <body>
     <h1>Profile</h1>
     <p>Welcome, {{ user.username }}!</p>
+
+    <h2>Daftar Meja</h2>
+    {% if reservations %}
+        <ul>
+            {% for reservation in reservations %}
+                <li>
+                    <p>
+                        Reservation on {{ reservation.date }} at {{ reservation.time }}
+                        <a href="{{ url_for('reservation_detail', reservation_id=reservation.id) }}">Details</a>
+                    </p>
+                    <form method="POST" action="{{ url_for('cancel_reservation', reservation_id=reservation.id) }}" onsubmit="return confirm('Are you sure you want to cancel this reservation?');">
+                        {{ reservation.csrf_token }}
+                        <button type="submit">Cancel</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No reservations</p>
+    {% endif %}
 </body>
 </html>

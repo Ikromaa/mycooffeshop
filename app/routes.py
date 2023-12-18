@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, flash
+from flask import render_template, redirect, url_for, flash, request
 from flask_login import login_user, logout_user, login_required, current_user
 from app import app, db, login_manager
 from app.forms import ReservationForm, RegistrationForm, LoginForm
@@ -34,7 +34,12 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         if user and user.check_password(form.password.data):
             login_user(user)
-            return redirect(url_for('book'))
+            next_page = request.args.get('next')
+            if next_page:
+                return redirect(next_page)
+            else:
+                return redirect(url_for('index'))
+            
         else:
             flash('Invalid email or password. Please try again.', 'danger')
     return render_template('login.html', form=form)
@@ -50,7 +55,9 @@ def logout():
 @app.route('/profile')
 @login_required
 def profile():
-    return render_template('profile.html', user=current_user)
+    user = current_user
+    user_reservations = user.reservations
+    return render_template('profile.html', user=user, reservations=user_reservations)
 
 # Booking page
 @app.route('/book', methods=['GET', 'POST'])
@@ -68,7 +75,7 @@ def book():
         db.session.add(reservation)
         db.session.commit()
         flash('Reservation successful!', 'success')
-        return redirect(url_for('index'))
+        return redirect(url_for('reservation_detail', reservation_id=reservation.id))
     return render_template('book.html', form=form)
 
 # Reservation detail page
@@ -77,3 +84,21 @@ def book():
 def reservation_detail(reservation_id):
     reservation = Reservation.query.get_or_404(reservation_id)
     return render_template('reservation_detail.html', reservation=reservation)
+
+# Reservation cancel
+
+@app.route('/cancel_reservation/<int:reservation_id>', methods=['POST'])
+@login_required
+def cancel_reservation(reservation_id):
+    reservation = Reservation.query.get_or_404(reservation_id)
+
+    # Verifikasi bahwa pengguna yang membatalkan reservasi adalah pemilik reservasi
+    if current_user.id != reservation.user_id:
+        flash('You are not authorized to cancel this reservation.', 'danger')
+        return redirect(url_for('profile'))
+
+    db.session.delete(reservation)
+    db.session.commit()
+
+    flash('Reservation canceled successfully!', 'success')
+    return redirect(url_for('profile'))
