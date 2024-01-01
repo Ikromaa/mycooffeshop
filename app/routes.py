@@ -2,7 +2,7 @@ from flask import render_template, redirect, url_for, flash, request
 from flask_login import login_user, logout_user, login_required, current_user
 from app import app, db, login_manager
 from app.forms import ReservationForm, RegistrationForm, LoginForm
-from app.models import User, Reservation, Admin
+from app.models import User, Reservation
 
 # Home page
 @app.route('/')
