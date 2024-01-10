@@ -3,37 +3,320 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kopi Kenangan Senja V.2</title>
+
+    <!-- My Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,700;1,700&display=swap" rel="stylesheet">
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <!-- My Style -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <title>Welcome to My Coffee Shop</title>
 </head>
 <body>
-    <h1>Welcome to My Coffee Shop</h1>
-    
+
+
     {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <ul>
-                {% for message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
-    
-    <p>Explore our menu and reserve a table to enjoy a delightful coffee experience!</p>
-    
-    {% if current_user.is_authenticated %}
-        <p>Welcome, {{ current_user.username }}!
-            
-        <a href="{{ url_for('profile') }}">Profile</a> | <a href="{{ url_for('logout') }}">Logout</a></p>
-
-    {% else %}
-        <p><a href="{{ url_for('login') }}">Login</a> or <a href="{{ url_for('register') }}">Sign Up</a></p>
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
     {% endif %}
+    {% endwith %}
+
     
-    <a href="{{ url_for('book') }}">Book a Table</a>
+    <!-- Navbar Start -->
+    <nav class="navbar">
+        <a href="#" class="navbar-logo">kenangan<span>senja</span>.</a>
 
+        <div class="navbar-nav">
+            <a href="#home">Home</a>
+            <a href="#about">Tentang Kami</a>
+            <a href="#menu">Menu</a>
+            <a href="#products">Produk</a>
+            <a href="#contact">Kontak</a>
+        </div>
 
+        <div class="navbar-extra">
+            <a href="#" id="search-button"></i></a>
+            <a href="#" id="shoping-cart-button" ></i></a>
+            <a href="#" id="hamburger-menu"></i></a>
+            {% if current_user.is_authenticated %}
+            <a href="{{ url_for('profile') }}" id="search-button">Profile</a> | <a href="{{ url_for('logout') }}">Logout</a></p>
+    
+        {% else %}
+            <p><a href="{{ url_for('login') }}">Login</a> or <a href="{{ url_for('register') }}">Sign Up</a></p>
+        {% endif %}
+        </div>
 
+        <!-- Search Form Start -->
+        <div class="search-form">
+            <input type="search" id="search-box" placeholder="search here...">
+            <label for="search-box"><i data-feather="search"></i></label>
+        </div>
+        <!-- Search Form End -->
 
+        <!-- Shopping Cart Start -->
+        <div class="shopping-cart">
+            <div class="cart-item">
+                <!-- <img src="{{ url_for('static', filename='images/products.jpg') }}" alt="Product 1"> -->
+                <img src="{{ url_for('static', filename='images/products_1.jpg') }}" alt="products 1">
+                <div class="item-detail">
+                    <h3>Product 1</h3>
+                    <div class="item-price">IDR 30K</div>
+                </div>
+                <i data-feather="trash-2" class="remove-item"></i>
+            </div>
+            <div class="cart-item">
+                <img src="img/2.jpg" alt="Product 1">
+                <div class="item-detail">
+                    <h3>Product 2</h3>
+                    <div class="item-price">IDR 30K</div>
+                </div>
+                <i data-feather="trash-2" class="remove-item"></i>
+            </div>
+            <div class="cart-item">
+                <img src="img/products/1.jpg" alt="Product 1">
+                <div class="item-detail">
+                    <h3>Product 1</h3>
+                    <div class="item-price">IDR 30K</div>
+                </div>
+                <i data-feather="trash-2" class="remove-item"></i>
+            </div>
+        </div>
+        <!-- Shopping Cart End -->
+    </nav>
+    <!-- Navbar End -->
+
+    <!-- Hero Section Start -->
+    <section class="hero" id="home">
+        <main class="content">
+            <h1>Mari Nikmati Secangkir <span> Kopi</span></h1>
+            <a href="{{ url_for('book') }}" class="cta">Booking Meja</a>
+        </main>
+    </section>
+    <!-- Hero Section End -->
+
+    <!-- About Section Start -->
+    <section id="about" class="about">
+        <h2><span>Tentang</span> Kami</h2>
+
+        <div class="row">
+            <div class="about-img">
+                <img src="{{ url_for('static', filename='images/kopi-hz.jpg') }}" alt="Tentang Kami">
+            </div>
+            <div class="content">
+                <h3>Kenapa memilih kopi kami ?</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet placeat consequuntur unde laudantium reiciendis illum?</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique voluptatem culpa quidem quis ducimus, consequuntur ex sint recusandae nesciunt? Excepturi!</p>
+            </div>
+        </div>
+    </section>
+    <!-- About Section End -->
+
+    <!-- Menu Section Start -->
+    <section id="menu" class="menu">
+        <h2><span>Menu</span> Kami</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis porro corrupti eos incidunt autem commodi?</p>
+
+        <div class="row">
+            <div class="menu-card">
+                <img src="/img/menu1.jpg" alt="Espresso" class="menu-card-img">
+                <h3 class="menu-card-title">- Espresso</h3>
+                <p class="menu-card-price">IDR 15K</p>
+            </div>
+            <div class="menu-card">
+                <img src="/img/menu1.jpg" alt="Espresso" class="menu-card-img">
+                <h3 class="menu-card-title">- Espresso</h3>
+                <p class="menu-card-price">IDR 15K</p>
+            </div>
+            <div class="menu-card">
+                <img src="/img/menu1.jpg" alt="Espresso" class="menu-card-img">
+                <h3 class="menu-card-title">- Espresso</h3>
+                <p class="menu-card-price">IDR 15K</p>
+            </div>
+            <div class="menu-card">
+                <img src="/img/menu1.jpg" alt="Espresso" class="menu-card-img">
+                <h3 class="menu-card-title">- Espresso</h3>
+                <p class="menu-card-price">IDR 15K</p>
+            </div>
+            <div class="menu-card">
+                <img src="/img/menu1.jpg" alt="Espresso" class="menu-card-img">
+                <h3 class="menu-card-title">- Espresso</h3>
+                <p class="menu-card-price">IDR 15K</p>
+            </div>
+            <div class="menu-card">
+                <img src="/img/menu1.jpg" alt="Espresso" class="menu-card-img">
+                <h3 class="menu-card-title">- Espresso</h3>
+                <p class="menu-card-price">IDR 15K</p>
+            </div>
+        </div>
+    </section>
+    <!-- Menu Section End -->
+
+    <!-- Produk Section Start -->
+    <section class="products" id="products">
+        <h2><span>Produk Unggulan</span> Kami</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores perspiciatis, quos ratione veniam blanditiis beatae!</p>
+
+        <div class="row">
+            <div class="product-card">
+                <div class="product-icons">
+                    <a href="#"><i data-feather="shopping-cart"></i></a>
+                    <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
+                </div>
+
+                <div class="product-image">
+                    <img src="{{ url_for('static', filename='images/products_1.jpg') }}" alt="product 1">
+                </div>
+
+                <div class="product-content">
+                    <h3>Coffe Beans 1</h3>
+                    <div class="product-stars">
+                        <i data-feather="star" class="star-full"></i>
+                        <i data-feather="star" class="star-full"></i>
+                        <i data-feather="star" class="star-full"></i>
+                        <i data-feather="star" class="star-full"></i>
+                        <i data-feather="star"></i>
+                    </div>
+                    
+                    <div class="product-price">IDR 30K <span>IDR 55K</span></div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-icons">
+                    <a href="#"><i data-feather="shopping-cart"></i></a>
+                    <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
+                </div>
+
+                <div class="product-image">
+                    <img src="{{ url_for('static', filename='images/2.jpg') }}" alt="product 1">
+                </div>
+
+                <div class="product-content">
+                    <h3>Coffe Beans 1</h3>
+                    <div class="product-stars">
+                        <i data-feather="star"></i>
+                        <i data-feather="star"></i>
+                        <i data-feather="star"></i>
+                        <i data-feather="star"></i>
+                        <i data-feather="star"></i>
+                    </div>
+                    
+                    <div class="product-price">IDR 30K <span>IDR 55K</span></div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-icons">
+                    <a href="#"><i data-feather="shopping-cart"></i></a>
+                    <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
+                </div>
+
+                <div class="product-image">
+                    <img src="{{ url_for('static', filename='images/products_1.jpg') }}" alt="product 1">
+                </div>
+
+                <div class="product-content">
+                    <h3>Coffe Beans 1</h3>
+                    <div class="product-stars">
+                        <i data-feather="star"></i>
+                        <i data-feather="star"></i>
+                        <i data-feather="star"></i>
+                        <i data-feather="star"></i>
+                        <i data-feather="star"></i>
+                    </div>
+                    
+                    <div class="product-price">IDR 30K <span>IDR 55K</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Produk Section End -->
+
+    <!-- Contact Section Start -->
+    <section id="contact" class="contact">
+        <h2><span>Kontak</span> Kami</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, quisquam?</p>
+
+        <div class="row">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3983.1110080159224!2d114.5908677742324!3d-3.3227387412415728!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2de423c85fde9d2b%3A0x49625f14bd302f6f!2sKota%20lama%20banjarmasin!5e0!3m2!1sid!2sid!4v1690614325183!5m2!1sid!2sid" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="map"></iframe>
+
+            <form action="">
+                <div class="input-group">
+                    <i data-feather="user"></i>
+                    <input type="text" placeholder="nama">
+                </div>
+                <div class="input-group">
+                    <i data-feather="mail"></i>
+                    <input type="text" placeholder="email">
+                </div>
+                <div class="input-group">
+                    <i data-feather="phone"></i>
+                    <input type="text" placeholder="no hp">
+                </div>
+                <button type="submit">Kirim Pesan</button>
+            </form>
+        </div>
+    </section>
+    <!-- Contact Section End -->
+
+    <!-- Footer Start -->
+    <footer>
+        <div class="socials">
+            <a href="https://www.instagram.com/ikromaaa.mv?igsh=MW03ZzRkYXVsZTZreg=="><i data-feather="instagram">Instagram</i></a>
+            <a href="#"><i data-feather="twitter">Twitter</i></a>
+            <a href="#"><i data-feather="facebook">Facebook</i></a>
+        </div>
+
+        <div class="links">
+            <a href="#home">Home</a>
+            <a href="#about">Tentang Kami</a>
+            <a href="#menu">Menu</a>
+            <a href="#contact">Kontak</a>
+        </div>
+
+        <div class="credits">
+            <p>Created by <a href="">@Ikromaa</a>. | &copy; 2023</p>
+        </div>
+    </footer>
+    <!-- Footer End -->
+
+    <!-- Modal Box Item Detail Start -->
+    <div class="modal" id="item-detail-modal">
+        <div class="modal-container">
+            <a href="#" class="close-icon"><i data-feather="x"></i></a>
+            <div class="modal-content">
+                <img src="img/products/1.jpg" alt="Product 1">
+                <div class="product-content">
+                    <h3>Product 1</h3>
+                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit ab dignissimos dolorem perferendis laudantium libero molestias similique maxime reiciendis laboriosam. Molestias dolorem nemo libero perferendis?</p>
+                    <div class="product-stars">
+                        <i data-feather="star" class="star-full"></i>
+                        <i data-feather="star" class="star-full"></i>
+                        <i data-feather="star" class="star-full"></i>
+                        <i data-feather="star" class="star-full"></i>
+                        <i data-feather="star"></i>
+                    </div>
+                    
+                    <div class="product-price">IDR 30K <span>IDR 55K</span></div>
+                    <a href="#"><i data-feather="shopping-cart"></i> <span>add to cart</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Box Item Detail End -->
+
+    <!-- Feather Icons -->
+    <script>
+        feather.replace()
+    </script>
+
+    <!-- My JS -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

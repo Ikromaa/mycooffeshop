@@ -4,20 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            background: url("/../static/images/header-bg.jpg") no-repeat center;
+            background-size: cover;
+        }
+
+        .reservation {
+            text-align: left;
+            margin-top: 30px;
+        }
+
+        h1, p, a {
+            font-size: 3em; /* Sesuaikan nilai font-size sesuai kebutuhan */
+        }
+    </style>
     <title>Reservation Detail</title>
 </head>
 <body>
-    <h1>Reservation Detail</h1>
-    
-    <p>Name: {{ reservation.name }}</p>
-    <p>Email: {{ reservation.email }}</p>
-    <p>Date: {{ reservation.date }}</p>
-    <p>Time: {{ reservation.time }}</p>
+    <div class="reservation">
+        <h1>Reservation Detail</h1>
+        
+        <p>Name: {{ reservation.name }}</p>
+        <p>Email: {{ reservation.email }}</p>
+        <p>Date: {{ reservation.date }}</p>
+        <p>Time: {{ reservation.time }}</p>
 
-    {% if current_user.is_authenticated %}
-        <p>Reserved by: {{ current_user.username }}</p>
-    {% endif %}
-    
-    <a href="{{ url_for('index') }}">Back to Home</a>
+        {% if current_user.is_authenticated %}
+            <p>Reserved by: {{ current_user.username }}</p>
+        {% endif %}
+        
+        <a href="{{ url_for('index') }}">Back to Home</a>
+    </div>
 </body>
 </html>
