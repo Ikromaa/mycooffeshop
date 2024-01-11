@@ -65,7 +65,7 @@ def book():
     if form.validate_on_submit():
         reservation = Reservation(
             name=form.name.data,
-            email=form.email.data,
+            nomor=form.nomor.data,
             date=form.date.data,
             time=form.time.data,
             user_id=current_user.id
